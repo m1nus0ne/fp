@@ -14,5 +14,6 @@ public class GrayScaleColorSelector : IColorSelector
         return Color.FromArgb(gray, gray, gray);
     }
 
-    public bool IsMatch(Options options) => options.ColorScheme == "gray";
+    public static IColorSelector? CreateFromOptions(Options options) =>
+        options.ColorScheme == "gray" ? new GrayScaleColorSelector() : null;
 }

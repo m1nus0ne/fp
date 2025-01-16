@@ -14,5 +14,6 @@ public class RandomColorSelector : IColorSelector
         return Color.FromArgb(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
     }
 
-    public bool IsMatch(Options options) => options.ColorScheme == "random";
+    public static IColorSelector? CreateFromOptions(Options options) =>
+        options.ColorScheme == "random" ? new RandomColorSelector() : null;
 }

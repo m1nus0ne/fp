@@ -6,15 +6,19 @@ using ColorConverter = TagCloud.Extensions.ColorConverter;
 
 namespace TagCloud;
 
-public class ConstantColorSelector(Color color) : IColorSelector
+public class ConstantColorSelector : IColorSelector
 {
-    private Color _color = color;
+    private Color _color;
+
+    public ConstantColorSelector(Color color)
+    {
+        _color = color;
+    }
+
     public Color SetColor() => _color;
 
-    public bool IsMatch(Options options)
-    {
-        if (!ColorConverter.TryConvert(options.ColorScheme, out var convertedColor)) return false;
-        _color = convertedColor;
-        return true;
-    }
+    public static IColorSelector? CreateFromOptions(Options options) =>
+        !ColorConverter.TryConvert(options.ColorScheme, out var convertedColor)
+            ? null
+            : new ConstantColorSelector(convertedColor);
 }

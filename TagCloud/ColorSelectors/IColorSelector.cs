@@ -6,5 +6,8 @@ namespace TagCloud.ColorSelectors;
 public interface IColorSelector
 {
     Color SetColor();
-    bool IsMatch(Options options);
+    static IColorSelector? CreateFromOptions(Options options)
+    {
+        return null;
+    }
 }
